@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+table {
+width: 260px;
+
+}
+table,th,td {
+border: 1px solid #bbb;
+}
+input{
+border-style:none;
+}
+
+.box{
+	width:480px;
+	border:10px #dddddd solid;
+	margin-bottom:20px;
+	text-align:center;
+}

@@ -1,0 +1,48 @@
+package jp.ac.isc.cloud;
+
+import java.io.*;
+import java.sql.*;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+/**
+ * Servlet implementation class UserInsertServlet
+ */
+//@WebServlet("/UserInsertServlet")
+public class UserInsertServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			Connection users = null;
+
+			//Class.forName("com.mysql.jdbc.Driver");
+			//users = DriverManager.getConnection("jdbc:mysql://localhost/servlet_db?useUn icode=true&characterEncoding=utf8","root","");
+			users = DBConnection.openConnection();
+			String id = request.getParameter("insertId");
+			String name = request.getParameter("insertName");
+			String picture = request.getParameter("insertPicture");
+			Statement state = users.createStatement();
+			state.executeUpdate("INSERT INTO user_table VALUE('" + id + "','" + name +
+			"','" + picture + "')");
+			DBConnection.closeConnection(users,state);
+			//users.close();
+			response.sendRedirect("/select"); //UserSelectServletを呼び出す
+			}catch(SQLException e){
+			e.printStackTrace();
+			}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
